@@ -1,3 +1,4 @@
+[![main](https://github.com/mybdye/GxxDOS/actions/workflows/main.yml/badge.svg)](https://github.com/mybdye/GxxDOS/actions/workflows/main.yml)
 #### ✏️ NOTE
 - 11.06
   - 新建
