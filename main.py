@@ -55,7 +55,7 @@ def checkin():
     #print('userInfo:', userInfo)
     checkInfo = sb.get_text('div[class="ui icon positive message"]')
     #print('checkInfo:', checkInfo)
-    body = checkInfo + '\n' + userInfo
+    body = userInfo + '\n' + checkInfo
 
 def screenshot():
     global body
