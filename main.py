@@ -1,7 +1,7 @@
 # https://github.com/mybdye 🌟
 
 
-import os, requests
+import os, requests, base64
 from seleniumbase import SB
 
 
@@ -83,6 +83,10 @@ def screenshot():
     return imgUrl
 
 
+def url_decode(s):
+    return str(base64.b64decode(s + '=' * (4 - len(s) % 4))).split('\'')[1]
+
+
 def push(body):
     print('- body: %s \n- waiting for push result' % body)
     # bark push
@@ -114,11 +118,6 @@ def push(body):
 
 ##
 try:
-    urlBase = os.environ['URL_BASE']
-except:
-    # 本地调试用， please type here the website address without any 'https://' or '/'
-    urlBase = ''
-try:
     username = os.environ['USERNAME']
 except:
     # 本地调试用
@@ -144,15 +143,17 @@ except:
     # 本地调试用
     tgUserID = ''
 ##
+urlBase = url_decode('Z2xhZG9zLnJvY2tz')
+urlLogin = urlBase + '/login'
+urlCheckin = urlBase + '/console/checkin'
+##
 body = ''
 imgFile = urlBase + '.png'
-##
-urlLogin = 'https://' + urlBase + '/login'
-urlCheckin = 'https://' + urlBase + '/console/checkin'
+
 
 with SB(uc=True) as sb:  # By default, browser="chrome" if not set.
     print('- 🚀 loading...')
-    if urlBase != '' and username != '' and mailparser != '':
+    if username != '' and mailparser != '':
         try:
             if login():
                 checkin()
@@ -164,6 +165,6 @@ with SB(uc=True) as sb:  # By default, browser="chrome" if not set.
                 push(e)
         push(body)
     else:
-        print('- please check urlBase/username/mailparser')
+        print('- please check username/mailparser')
 
 # END

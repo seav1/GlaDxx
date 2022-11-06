@@ -27,7 +27,6 @@ schedule:
 #### ㊙️ SECRET
   |YOU SECRET NAME|YOU SECRET VALUE|
   |-----|--|
-  |`URL_BASE`|网址，不要带有`https://` 和 `/` |
   |`USERNAME`|你的邮箱|
   |`MAILPARSER`|https://files.mailparser.io/d/xxxxxxxx (需设置 `G**** Authentication` 邮件转发到 mailparser 并设置 pin 解析规则然后新建 json 下载链接)官网：https://app.mailparser.io|
   |`BARK_TOKEN`|(可选) api.day.app/`BARK_TOKEN`/ 详见 https://github.com/Finb/Bark|

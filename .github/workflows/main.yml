@@ -26,7 +26,7 @@ jobs:
           pip install -r ./requirements.txt
       - name: 'Checkin'
         env:
-          URL_BASE: ${{ secrets.URL_BASE }}
+#          URL_BASE: ${{ secrets.URL_BASE }}
           USERNAME: ${{ secrets.USERNAME }}
           MAILPARSER: ${{ secrets.MAILPARSER }}
           BARK_TOKEN: ${{ secrets.BARK_TOKEN }}
