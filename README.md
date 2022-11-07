@@ -28,14 +28,18 @@ schedule:
 #### ㊙️ SECRET
   |YOU SECRET NAME|YOU SECRET VALUE|
   |-----|--|
-  |`USERNAME`|你的邮箱|
-  |`MAILPARSER`|`https://files.mailparser.io/d/xxxxxxxx` <br/> (需设置 `G**** Authentication` 邮件转发到 mailparser 并设置 pin 解析规则然后新建 json 下载链接) <br/>官网：https://app.mailparser.io|
+  |`COOKIES`| cookies |
   |`BARK_TOKEN`|(可选) api.day.app/`BARK_TOKEN`/ 详见 https://github.com/Finb/Bark|
   |`TG_BOT_TOKEN`|(可选) `xxxxxx:xxxxxxxxxxxxx`|
   |`TG_USER_ID`|(可选) 给 bot `@userinfobot` 发送 `/start`|
+<br>
+<img src="secret.png">
 
-#### 📌 pin (别改其他名字)
-<img src="pin.png">
+#### 📌 cookies 获取
+本地浏览器登陆后,打开开发者工具(F12),按下图顺序获取 <br>
+Network > Doc > console > 刷新 > Request Headers > cookies <br> 右键 copy value
+<img src="cookies.png">
+
 
 #### 📚 THANKS
 - [SeleniumBase](https://github.com/seleniumbase)
