@@ -6,7 +6,7 @@ from seleniumbase import SB
 
 
 def login():
-    global cookies
+    global cookies, body
     print('- login')
     try:
         cookies = '[' + cookies.replace('cookie: ', '').replace('; ', '"}, ').replace('koa:sess=','{"name": "koa:sess", "value": "').replace('koa:sess.sig=', '{"name": "koa:sess.sig", "value": "') + '"}]'
@@ -22,6 +22,7 @@ def login():
         return True
     except Exception as e:
         print('👀 ', e)
+        body = e
         return False
   
 
