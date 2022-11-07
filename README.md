@@ -29,7 +29,7 @@ schedule:
   |YOU SECRET NAME|YOU SECRET VALUE|
   |-----|--|
   |`USERNAME`|你的邮箱|
-  |`MAILPARSER`|https://files.mailparser.io/d/xxxxxxxx (需设置 `G**** Authentication` 邮件转发到 mailparser 并设置 pin 解析规则然后新建 json 下载链接)官网：https://app.mailparser.io|
+  |`MAILPARSER`|`https://files.mailparser.io/d/xxxxxxxx` <br/> (需设置 `G**** Authentication` 邮件转发到 mailparser 并设置 pin 解析规则然后新建 json 下载链接) <br/>官网：https://app.mailparser.io|
   |`BARK_TOKEN`|(可选) api.day.app/`BARK_TOKEN`/ 详见 https://github.com/Finb/Bark|
   |`TG_BOT_TOKEN`|(可选) `xxxxxx:xxxxxxxxxxxxx`|
   |`TG_USER_ID`|(可选) 给 bot `@userinfobot` 发送 `/start`|
