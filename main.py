@@ -8,39 +8,21 @@ from seleniumbase import SB
 def login():
     print('- login')
     try:
+        cookies = '[' + cookies.replace('cookie: ', '').replace('; ', '"}, ').replace('koa:sess=','{"name": "koa:sess", "value": "').replace('koa:sess.sig=', '{"name": "koa:sess.sig", "value": "') + '"}]'
+        txt = open('./saved_cookies/cookies.txt', 'w')
+        txt.write(cookies)
+        txt.close()
         sb.open(urlLogin)
         sb.assert_text('Login your account', 'h2', timeout=20)
         print('- access')
-    except Exception as e:
-        print('👀 ', e, '\n try again!')
-        sb.open(urlLogin)
-        sb.assert_text('Login your account', 'h2', timeout=20)
-        print('- access')
-    #sb.switch_to_default_content()  # Exit all iframes
-    sb.sleep(1)
-    sb.type('#email', username)
-    sb.sleep(1)
-    sb.click('button:contains("send access code to email")')
-    sb.sleep(10)
-    sb.type('#mailcode', get_pin())
-    sb.click('button:contains("Login")')
-    sb.sleep(10)
-    try:
-        sb.assert_text('Notification', 'div[class="ui blue header"]')
-        print('- login success')
+        print('- load_cookies')
+        sb.load_cookies('cookies.txt')
+        print('- load_cookies done')
         return True
     except Exception as e:
-        print('- login issue:', e)
+        print('👀 ', e)
         return False
-
-
-def get_pin():
-    print('- get pin')
-    response = requests.get(url=mailparser)
-    pin = response.json()[0]['pin']
-    print('- pin:', pin)
-    return pin
-
+  
 
 def checkin():
     global body
@@ -118,15 +100,10 @@ def push(body):
 
 ##
 try:
-    username = os.environ['USERNAME']
+    cookies = os.environ['COOKIES']
 except:
     # 本地调试用
-    username = ''
-try:
-    mailparser = os.environ['MAILPARSER']
-except:
-    # 本地调试用
-    mailparser = ''
+    cookies = ''
 try:
     barkToken = os.environ['BARK_TOKEN']
 except:
@@ -165,6 +142,6 @@ with SB(uc=True) as sb:  # By default, browser="chrome" if not set.
                 push(e)
         push(body)
     else:
-        print('- please check username/mailparser')
+        print('- please check COOKIES')
 
 # END
