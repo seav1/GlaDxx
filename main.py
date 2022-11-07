@@ -7,11 +7,11 @@ from seleniumbase import SB
 
 def login():
     print('- login')
+    cookies = '[' + cookies.replace('cookie: ', '').replace('; ', '"}, ').replace('koa:sess=','{"name": "koa:sess", "value": "').replace('koa:sess.sig=', '{"name": "koa:sess.sig", "value": "') + '"}]'
+    txt = open('./saved_cookies/cookies.txt', 'w')
+    txt.write(cookies)
+    txt.close()
     try:
-        cookies = '[' + cookies.replace('cookie: ', '').replace('; ', '"}, ').replace('koa:sess=','{"name": "koa:sess", "value": "').replace('koa:sess.sig=', '{"name": "koa:sess.sig", "value": "') + '"}]'
-        txt = open('./saved_cookies/cookies.txt', 'w')
-        txt.write(cookies)
-        txt.close()
         sb.open(urlLogin)
         sb.assert_text('Login your account', 'h2', timeout=20)
         print('- access')
