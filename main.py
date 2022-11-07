@@ -130,7 +130,7 @@ imgFile = urlBase + '.png'
 
 with SB(uc=True) as sb:  # By default, browser="chrome" if not set.
     print('- 🚀 loading...')
-    if username != '' and mailparser != '':
+    if cookies != '':
         try:
             if login():
                 checkin()
