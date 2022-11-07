@@ -21,7 +21,7 @@ def login():
     sb.type('#email', username)
     sb.sleep(1)
     sb.click('button:contains("send access code to email")')
-    sb.sleep(4)
+    sb.sleep(10)
     sb.type('#mailcode', get_pin())
     sb.click('button:contains("Login")')
     sb.sleep(10)
