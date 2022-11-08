@@ -5,22 +5,30 @@ import os, requests, base64, json
 from seleniumbase import SB
 
 
+def setup_cookies():
+    global cookies
+    print('- setup_cookies')
+    data_json = json.loads(json_temp)
+    cookies = cookies.split('; ')
+    for data in cookies:
+        data = data.split('=')
+        for i in range(0, 2):
+            if data[0] == data_json[i]['name']:
+                data_json[i]['value'] = data[1]
+    if not os.path.exists(cookie_path):  # 如果目录不存在则新建
+        os.mkdir(cookie_path)
+    txt = open('./saved_cookies/cookies.txt', 'w')
+    json.dump(data_json, txt)
+    txt.close()
+    print('- setup_cookies done')
+
+        
+        
 def login():
-    global cookies, body
+    global body
     print('- login')
     try:
-        data_json = json.loads(json_temp)
-        cookies = cookies.split('; ')
-        for data in cookies:
-            data = data.split('=')
-            for i in range(0, 2):
-                if data[0] == data_json[i]['name']:
-                    data_json[i]['value'] = data[1]
-        if not os.path.exists(cookie_path):  # 如果目录不存在则新建
-            os.mkdir(cookie_path)
-        txt = open('./saved_cookies/cookies.txt', 'w')
-        json.dump(data_json, txt)
-        txt.close()
+        setup_cookies()
         sb.open(urlLogin)
         sb.assert_text('Login your account', 'h2', timeout=20)
         print('- access')
