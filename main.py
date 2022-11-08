@@ -1,7 +1,7 @@
 # https://github.com/mybdye 🌟
 
 
-import os, requests, base64
+import os, requests, base64, json
 from seleniumbase import SB
 
 
@@ -9,9 +9,17 @@ def login():
     global cookies, body
     print('- login')
     try:
-        cookies = '[' + cookies.replace('cookie: ', '').replace('; ', '"}, ').replace('koa:sess=','{"name": "koa:sess", "value": "').replace('koa:sess.sig=', '{"name": "koa:sess.sig", "value": "') + '"}]'
+        data_json = json.loads(json_temp)
+        cookies = cookies.split('; ')
+        for data in cookies:
+            data = data.split('=')
+            for i in range(0, 2):
+                if data[0] == data_json[i]['name']:
+                    data_json[i]['value'] = data[1]
+        if not os.path.exists(cookie_path):  # 如果目录不存在则新建
+            os.mkdir(cookie_path)
         txt = open('./saved_cookies/cookies.txt', 'w')
-        txt.write(cookies)
+        json.dump(data_json, txt)
         txt.close()
         sb.open(urlLogin)
         sb.assert_text('Login your account', 'h2', timeout=20)
@@ -128,6 +136,10 @@ urlCheckin = urlBase + '/console/checkin'
 ##
 body = ''
 imgFile = urlBase + '.png'
+json_temp = '''
+[{"name": "koa:sess", "value": ""}, {"name": "koa:sess.sig", "value": ""}]
+'''
+cookie_path ='saved_cookies'
 
 
 with SB(uc=True) as sb:  # By default, browser="chrome" if not set.
