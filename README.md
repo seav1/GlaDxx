@@ -1,5 +1,9 @@
 [![main](https://github.com/mybdye/GxxDOS/actions/workflows/main.yml/badge.svg)](https://github.com/mybdye/GxxDOS/actions/workflows/main.yml)
+
 #### ✏️ NOTE
+- 11.08
+  - use [json] instead of [replace]
+  - rm save_cookies folder/file
 - 11.06
   - 新建
       * 每次运行时间约 1 分钟
@@ -33,12 +37,12 @@ schedule:
   |`TG_BOT_TOKEN`|(可选) `xxxxxx:xxxxxxxxxxxxx`|
   |`TG_USER_ID`|(可选) 给 bot `@userinfobot` 发送 `/start`|
 <br>
-<img src="secret.png">
+<img src="img/secret.png">
 
 #### 📌 cookies 获取
 本地浏览器登陆后,打开开发者工具(F12),按下图顺序获取 <br>
 Network > Doc > console > 刷新 > Request Headers > cookies <br> 右键 copy value
-<img src="cookies.png">
+<img src="img/cookies.png">
 
 
 #### 📚 THANKS
