@@ -56,6 +56,8 @@ def checkin():
     userInfo = sb.get_text('div.row p')
     checkInfo = sb.get_text('div[class="ui icon positive message"]')
     body = '[%s***@***%s]\n%s\n%s' % (userName[0][:2], userName[1][-4:], userInfo, checkInfo)
+    # remove cookie file
+    os.remove('./saved_cookies/cookies.txt')
 
 def screenshot():
     global body
