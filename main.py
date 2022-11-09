@@ -51,11 +51,11 @@ def checkin():
     print('- click checkin')
     sb.click(checkIn)
     sb.sleep(4)
+    userName = sb.get_text('a[class="right item"]')
+    userName = userName.replace(')', '').split('(')[1].split('@')
     userInfo = sb.get_text('div.row p')
-    #print('userInfo:', userInfo)
     checkInfo = sb.get_text('div[class="ui icon positive message"]')
-    #print('checkInfo:', checkInfo)
-    body = userInfo + '\n' + checkInfo
+    body = '[%s***@***%s] %s \n %s' % (userName[0][:2], userName[1][3:], userInfo, checkInfo)
 
 def screenshot():
     global body
