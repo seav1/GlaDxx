@@ -1,4 +1,4 @@
-[![GlaDxx](https://github.com/mybdye/GlaDxx/actions/workflows/main.yml/badge.svg)](https://github.com/mybdye/GlaDxx/actions/workflows/main.yml)
+[![GlaDxx](https://github.com/mybdye/GlaDxx/workflows/GlaDxx/badge.svg)](https://github.com/mybdye/GlaDxx/actions/workflows/main.yml)
 
 #### ✏️ NOTE
 - 11.08
