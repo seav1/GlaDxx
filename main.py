@@ -38,7 +38,7 @@ def login():
         return True
     except Exception as e:
         print('👀 ', e)
-        body = e
+        body = str(e)
         return False
   
 
@@ -163,7 +163,7 @@ with SB(uc=True) as sb:  # By default, browser="chrome" if not set.
             try:
                 screenshot()
             finally:
-                push(e)
+                push(str(e))
         push(body)
     else:
         print('- please check COOKIES')
