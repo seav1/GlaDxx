@@ -1,8 +1,10 @@
 # https://github.com/mybdye 🌟
 
-
 import os, requests, base64, json
+import pyscreenshot as ImageGrab
+
 from seleniumbase import SB
+from urllib.parse import quote
 
 
 def setup_cookies():
@@ -46,28 +48,40 @@ def checkin():
     global body
     print('- checkin')
     sb.open(urlCheckin)
-    checkIn = 'button[class="ui positive button"]'
-    sb.assert_element(checkIn)
-    print('- click checkin')
-    sb.click(checkIn)
     sb.sleep(4)
-    userName = sb.get_text('a[class="right item"]')
-    userName = userName.replace(')', '').split('(')[1].split('@')
-    userInfo = sb.get_text('div.row p')
-    checkInfo = sb.get_text('div[class="ui icon positive message"]')
-    body = '[%s***@***%s]\n%s\n%s' % (userName[0][:2], userName[1][-4:], userInfo, checkInfo)
-    # remove cookie file
-    os.remove('./saved_cookies/cookies.txt')
+    try:
+        assert sb.get_current_url() == urlCheckin
+        print('- login success')
+        buttonCheckin = 'button[class="ui positive button"]'
+        sb.assert_element(buttonCheckin)
+        print('- click buttonCheckin')
+        sb.click(buttonCheckin)
+        sb.sleep(4)
+        userName = sb.get_text('a[class="right item"]')
+        userName = userName.replace(')', '').split('(')[1].split('@')
+        userInfo = sb.get_text('div.row p')
+        checkInfo = sb.get_text('div[class="ui icon positive message"]')
+        body = '[%s***@***%s]\n%s\n%s' % (userName[0][:2], userName[1][-4:], userInfo, checkInfo)
+    except:
+        print('- Please Check COOKIES')
+        body = screenshot()
+
 
 def screenshot():
     global body
     print('- screenshot')
-    sb.save_screenshot(imgFile, folder=os.getcwd())
+    # grab fullscreen
+    im = ImageGrab.grab()
+    # save image file
+    im.save("fullscreen.png")
+
+    # sb.save_screenshot(imgFile, folder=os.getcwd())
     print('- screenshot done')
     sb.open_new_window()
     print('- screenshot upload')
     sb.open('http://imgur.com/upload')
-    sb.choose_file('input[type="file"]', os.getcwd() + '/' + imgFile)
+    # sb.choose_file('input[type="file"]', os.getcwd() + '/' + imgFile)
+    sb.choose_file('input[type="file"]', "fullscreen.png")
     sb.sleep(6)
     imgUrl = sb.get_current_url()
     i = 1
@@ -91,31 +105,35 @@ def url_decode(s):
 
 def push(body):
     print('- body: %s \n- waiting for push result' % body)
-    # bark push
-    if barkToken == '':
-        print('*** No BARK_KEY ***')
-    else:
-        barkurl = 'https://api.day.app/' + barkToken
-        title = urlBase
-        rq_bark = requests.get(url=f'{barkurl}/{title}/{body}?isArchive=1')
-        if rq_bark.status_code == 200:
-            print('- bark push Done!')
-        else:
-            print('*** bark push fail! ***', rq_bark.content.decode('utf-8'))
+
     # tg push
     if tgBotToken == '' or tgUserID == '':
         print('*** No TG_BOT_TOKEN or TG_USER_ID ***')
     else:
-        body = urlBase + '\n\n' + body
+        tgbody = urlBase + '\n\n' + body
         server = 'https://api.telegram.org'
         tgurl = server + '/bot' + tgBotToken + '/sendMessage'
-        rq_tg = requests.post(tgurl, data={'chat_id': tgUserID, 'text': body}, headers={
+        rq_tg = requests.post(tgurl, data={'chat_id': tgUserID, 'text': tgbody}, headers={
             'Content-Type': 'application/x-www-form-urlencoded'})
         if rq_tg.status_code == 200:
             print('- tg push Done!')
         else:
             print('*** tg push fail! ***', rq_tg.content.decode('utf-8'))
-    print('- finish!')
+
+    # bark push
+    if barkToken == '':
+        print('*** No BARK_KEY ***')
+    else:
+        barkurl = 'https://api.day.app/' + barkToken
+        barktitle = quote(urlBase, safe='')
+        barkbody = quote(body, safe='')
+        rq_bark = requests.get(url=f'{barkurl}/{barktitle}/{barkbody}?isArchive=1')
+        if rq_bark.status_code == 200:
+            print('- bark push Done!')
+        else:
+            print('*** bark push fail! ***', rq_bark.content.decode('utf-8'))
+
+    print('- push finish!')
 
 
 ##
@@ -140,7 +158,7 @@ except:
     # 本地调试用
     tgUserID = ''
 ##
-urlBase = url_decode('Z2xhZG9zLnJvY2tz')
+urlBase = url_decode('aHR0cHM6Ly9nbGFkb3MubmV0d29yaw==')
 urlLogin = urlBase + '/login'
 urlCheckin = urlBase + '/console/checkin'
 ##
@@ -152,20 +170,15 @@ json_temp = '''
 cookie_path ='saved_cookies'
 
 
-with SB(uc=True) as sb:  # By default, browser="chrome" if not set.
+with SB(uc=True, sjw=True) as sb:  # By default, browser="chrome" if not set.
     print('- 🚀 loading...')
     if cookies != '':
-        try:
-            if login():
-                checkin()
-        except Exception as e:
-            print('💥', e)
-            try:
-                screenshot()
-            finally:
-                push(str(e))
-        push(body)
+        if login():
+            checkin()
+        # remove cookie file
+        os.remove('./saved_cookies/cookies.txt')
     else:
-        print('- please check COOKIES')
-
+        print('- Please Check COOKIES')
+        body = '- Please Check COOKIES'
+    push(body)
 # END

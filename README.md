@@ -1,6 +1,8 @@
 [![GlaDxx](https://github.com/mybdye/GlaDxx/workflows/GlaDxx/badge.svg)](https://github.com/mybdye/GlaDxx/actions/workflows/main.yml)
 
 #### ✏️ NOTE
+- 11.19
+  - some improvements
 - 11.08
   - use [json] instead of [replace]
   - rm save_cookies folder/file
@@ -39,9 +41,9 @@ schedule:
 <br>
 <img src="img/secret.png">
 
-#### 📌 cookies 获取
+#### 📌 COOKIES 获取
 本地浏览器登陆后,打开开发者工具(F12),按下图顺序获取 <br>
-Network > Doc > console > 刷新 > Request Headers > cookies <br> 右键 copy value
+Network > Doc > 刷新 > console > Request Headers > cookie <br> 右键 copy value
 <img src="img/cookies.png">
 
 

@@ -23,6 +23,7 @@ jobs:
       - name: 'Environment Settings'
         run: |
           pip install --upgrade pip
+          pip install Pillow pyscreenshot
           pip install -r ./requirements.txt
       - name: 'Checkin'
         env:
