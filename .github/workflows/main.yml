@@ -14,17 +14,27 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     # 超时设置
     timeout-minutes: 5
     steps:
       - name: checkout
         uses: actions/checkout@v3
+        
+      - name: Delete old workflow runs
+        uses: MajorScruffy/delete-old-workflow-runs@v0.3.0
+        with:
+          repository: ${{ github.repository }}   # replace this with your own repository such as >> owner/repo
+          older-than-seconds: 86400          # remove all workflow runs older than 1 day >> 24*60*60=86400
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
       - name: 'Environment Settings'
         run: |
           pip install --upgrade pip
           pip install Pillow pyscreenshot
           pip install -r ./requirements.txt
+          
       - name: 'Checkin'
         env:
           COOKIES: ${{ secrets.COOKIES }}
