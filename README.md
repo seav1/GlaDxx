@@ -1,6 +1,8 @@
-[![GlaDxx](https://github.com/mybdye/GlaDxx/workflows/GlaDxx/badge.svg)](https://github.com/mybdye/GlaDxx/actions/workflows/main.yml)
+See you.
 
 #### ✏️ NOTE
+- 11.05
+  - Free users can not checkin anymore, please upgrade to Basic/Pro plan.
 - 11.19
   - some improvements
 - 11.08
