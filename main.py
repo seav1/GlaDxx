@@ -60,10 +60,12 @@ def checkin():
         userName = sb.get_text('a[class="right item"]')
         userName = userName.replace(')', '').split('(')[1].split('@')
         userInfo = sb.get_text('div.row p')
-        checkInfo = sb.get_text('div[class="ui icon positive message"]')
+        checkInfo_element = 'div[class="ui icon positive message"]'
+        sb.wait_for_element(checkInfo_element)
+        checkInfo = sb.get_text(checkInfo_element)
         body = '[%s***@%s***]\n%s\n%s' % (userName[0][0], userName[1][0], userInfo, checkInfo)
-    except:
-        print('- Please Check COOKIES')
+    except Exception as e:
+        print('👀 checkin:', e)
         body = screenshot()
 
 
