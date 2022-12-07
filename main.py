@@ -51,7 +51,7 @@ def checkin():
     sb.sleep(4)
     try:
         assert sb.get_current_url() == urlCheckin
-        print('- login success')
+        print('- page load success')
         buttonCheckin = 'button[class="ui positive button"]'
         sb.assert_element(buttonCheckin)
         print('- click buttonCheckin')
@@ -59,6 +59,7 @@ def checkin():
         sb.sleep(4)
         userName = sb.get_text('a[class="right item"]')
         if len(userName) > 0:
+            print('- login success')
             userName = userName.replace(')', '').split('(')[1].split('@')
             userInfo = sb.get_text('div.row p')
             checkInfo_element = 'div[class="ui icon positive message"]'
@@ -66,7 +67,7 @@ def checkin():
             checkInfo = sb.get_text(checkInfo_element)
             body = '[%s***@%s***]\n%s\n%s' % (userName[0][0], userName[1][0], userInfo, checkInfo)
         else:
-            print('👀 userName:', userName)
+            print('👀 len(userName):', len(userName))
             body = screenshot()
     except Exception as e:
         print('👀 checkin:', e)
