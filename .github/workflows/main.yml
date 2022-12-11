@@ -21,6 +21,18 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
         
+      - name: Setup Python version
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip' # caching pip dependencies
+          
+      - name: Setup Environment
+        run: |
+          pip install --upgrade pip
+          pip install Pillow pyscreenshot
+          pip install -r ./requirements.txt  
+        
       - name: Delete old workflow runs
         uses: MajorScruffy/delete-old-workflow-runs@v0.3.0
         with:
@@ -29,13 +41,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
-      - name: 'Environment Settings'
-        run: |
-          pip install --upgrade pip
-          pip install Pillow pyscreenshot
-          pip install -r ./requirements.txt
-          
-      - name: 'Checkin'
+      - name: Checkin
         env:
           COOKIES: ${{ secrets.COOKIES }}
           BARK_TOKEN: ${{ secrets.BARK_TOKEN }}
