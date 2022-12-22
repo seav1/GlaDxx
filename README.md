@@ -1,4 +1,4 @@
-See you.
+[![GlaDxx](https://github.com/mybdye/GlaDxx/actions/workflows/main.yml/badge.svg)](https://github.com/mybdye/GlaDxx/actions/workflows/main.yml)
 
 #### ✏️ NOTE
 - 12.22 add expiration judgment
