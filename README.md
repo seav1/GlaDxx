@@ -2,16 +2,12 @@ See you.
 
 #### ✏️ NOTE
 - 12.22 add expiration judgment
-- 12.05
-  - Free users can not checkin anymore, please upgrade to Basic/Pro plan.
-- 11.19
-  - some improvements
+- 12.05 Free users can not checkin anymore, please upgrade to Basic/Pro plan.
+- 11.19 some improvements
 - 11.08
   - use [json] instead of [replace]
-  - rm save_cookies folder/file
-- 11.06
-  - 新建
-    * 每次运行时间约 1 分钟
+  - remove save_cookies file
+- 11.06 build, 每次运行时间约 1 分钟
 
 #### 🌟️ SUGGESTION
 ```diff
