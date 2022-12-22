@@ -41,26 +41,37 @@ def login():
         sb.load_cookies('cookies.txt')
         print('- load_cookies done')
         sb.open(urlConsole)
-        sb.sleep(2)
-        assert 'console' in sb.get_current_url()
-        print('- login success')
-        return True
+        sb.sleep(4)
+        current_url = sb.get_current_url()
+        if 'console' in current_url:
+            print('- login success')
+            return True
+        else:
+            print('- login fail, please check your cookie')
+            body.append('Please Check/Update Your COOKIES')
+            print('- url:', current_url)
+            screenshot()
+            return False
     except Exception as e:
         print('- 👀 login:', e)
-        body = str(e)
+        body.append(str(e))
         return False
 
 
 def free_trial():
     global body
     msgText = '.modal > div:nth-child(1)'
-    if sb.assert_element(msgText, by='css selector'):
-        body = sb.get_text(msgText)
-        print('- ⚠️:', body)
-        return False
-    else:
+    try:
+        if sb.assert_element(msgText, by='css selector'):
+            body.append(sb.get_text(msgText))
+            print('- ⚠️:', body)
+            return False
+        else:
+            return True
+    except Exception as e:
+        print('- 👀 free_trial:', e)
         return True
-
+ 
 
 def checkin():
     global body
@@ -83,13 +94,13 @@ def checkin():
             checkInfo_element = 'div[class="ui icon positive message"]'
             sb.wait_for_element(checkInfo_element)
             checkInfo = sb.get_text(checkInfo_element)
-            body = '[%s***@%s***]\n%s\n%s' % (userName[0][0], userName[1][0], userInfo, checkInfo)
+            body.append('[%s***]\n%s\n%s' % (userName[0][:-2], userInfo, checkInfo))
         else:
             print('- 👀 len(userName):', len(userName))
-            body = screenshot()
+            body.append(screenshot())
     except Exception as e:
         print('- 👀 checkin:', e)
-        body = screenshot()
+        body.append(screenshot())
 
 
 def screenshot():
@@ -118,7 +129,7 @@ def screenshot():
         imgUrl = sb.get_current_url()
         i += 1
     print('- 📷 img url:', imgUrl)
-    body = imgUrl
+    body.append(imgUrl)
     print('- screenshot upload done')
 
     return imgUrl
@@ -188,7 +199,7 @@ urlLogin = urlBase + '/login'
 urlConsole = urlBase + '/console'
 urlCheckin = urlBase + '/console/checkin'
 ##
-body = ''
+body = []
 imgFile = urlBase + '.png'
 json_temp = '''
 [{"name": "koa:sess", "value": ""}, {"name": "koa:sess.sig", "value": ""}]
@@ -196,7 +207,7 @@ json_temp = '''
 cookie_path ='saved_cookies'
 
 
-with SB(uc=True, sjw=True) as sb:  # By default, browser="chrome" if not set.
+with SB(uc=True, pls="none", sjw=True) as sb:  # By default, browser="chrome" if not set.
     print('- loading 🚀...')
     if cookies != '':
         if login():
@@ -205,8 +216,11 @@ with SB(uc=True, sjw=True) as sb:  # By default, browser="chrome" if not set.
         # remove cookie file
         os.remove('./saved_cookies/cookies.txt')
     else:
-        print('- Please Check COOKIES')
-        body = '- Please Check COOKIES'
-    push(body)
+        body.append('Please Check/Update Your COOKIES')
+        print(body)
+    pushbody = ''
+    for i in range(len(body)):
+        pushbody += body[i]+'\n'
+    push(pushbody)
     sb.driver.close()
 # END
