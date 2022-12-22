@@ -1,10 +1,13 @@
 # https://github.com/mybdye 🌟
 
-import os, requests, base64, json
-import pyscreenshot as ImageGrab
-
-from seleniumbase import SB
+import base64
+import json
+import os
+import requests
 from urllib.parse import quote
+
+import pyscreenshot as ImageGrab
+from seleniumbase import SB
 
 
 def setup_cookies():
@@ -33,16 +36,31 @@ def login():
         setup_cookies()
         sb.open(urlLogin)
         sb.assert_text('Login your account', 'h2', timeout=20)
-        print('- access')
+        print('- page access')
         print('- load_cookies')
         sb.load_cookies('cookies.txt')
         print('- load_cookies done')
+        sb.open(urlConsole)
+        sb.sleep(2)
+        assert 'console' in sb.get_current_url()
+        print('- login success')
         return True
     except Exception as e:
-        print('👀 ', e)
+        print('- 👀 login:', e)
         body = str(e)
         return False
-  
+
+
+def free_trial():
+    global body
+    msgText = '.modal > div:nth-child(1)'
+    if sb.assert_element(msgText, by='css selector'):
+        body = sb.get_text(msgText)
+        print('- ⚠️:', body)
+        return False
+    else:
+        return True
+
 
 def checkin():
     global body
@@ -67,10 +85,10 @@ def checkin():
             checkInfo = sb.get_text(checkInfo_element)
             body = '[%s***@%s***]\n%s\n%s' % (userName[0][0], userName[1][0], userInfo, checkInfo)
         else:
-            print('👀 len(userName):', len(userName))
+            print('- 👀 len(userName):', len(userName))
             body = screenshot()
     except Exception as e:
-        print('👀 checkin:', e)
+        print('- 👀 checkin:', e)
         body = screenshot()
 
 
@@ -167,6 +185,7 @@ except:
 ##
 urlBase = url_decode('aHR0cHM6Ly9nbGFkb3MubmV0d29yaw==')
 urlLogin = urlBase + '/login'
+urlConsole = urlBase + '/console'
 urlCheckin = urlBase + '/console/checkin'
 ##
 body = ''
@@ -178,14 +197,16 @@ cookie_path ='saved_cookies'
 
 
 with SB(uc=True, sjw=True) as sb:  # By default, browser="chrome" if not set.
-    print('- 🚀 loading...')
+    print('- loading 🚀...')
     if cookies != '':
         if login():
-            checkin()
+            if free_trial():
+                checkin()
         # remove cookie file
         os.remove('./saved_cookies/cookies.txt')
     else:
         print('- Please Check COOKIES')
         body = '- Please Check COOKIES'
     push(body)
+    sb.driver.close()
 # END
