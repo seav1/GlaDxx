@@ -1,5 +1,6 @@
 # https://github.com/mybdye 🌟
 
+import re
 import base64
 import json
 import os
@@ -16,7 +17,7 @@ def setup_cookies():
     data_json = json.loads(json_temp)
     cookies = cookies.split('; ')
     for data in cookies:
-        data = data.split('=')
+        data = re.split('=(?=[\S])', data)
         for i in range(0, 2):
             if data[0] == data_json[i]['name']:
                 data_json[i]['value'] = data[1]
