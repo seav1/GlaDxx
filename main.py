@@ -42,7 +42,7 @@ def login():
         sb.load_cookies('cookies.txt')
         print('- load_cookies done')
         sb.open(urlConsole)
-        sb.sleep(4)
+        sb.sleep(10)
         current_url = sb.get_current_url()
         if 'console' in current_url:
             print('- login success')
@@ -100,6 +100,7 @@ def checkin():
             print('- 👀 len(userName):', len(userName))
             body.append(screenshot())
     except Exception as e:
+        #if sb.get_current_url() != urlCheckin:
         print('- 👀 checkin:', e)
         body.append(screenshot())
 
