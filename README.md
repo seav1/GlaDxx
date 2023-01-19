@@ -1,13 +1,14 @@
 [![GlaDxx](https://github.com/mybdye/GlaDxx/actions/workflows/main.yml/badge.svg)](https://github.com/mybdye/GlaDxx/actions/workflows/main.yml)
 
 #### ✏️ NOTE
-- 12.22 add expiration judgment
-- 12.05 Free users can not checkin anymore, please upgrade to Basic/Pro plan.
-- 11.19 some improvements
-- 11.08
+- 2023.01.19 fix cookie error notification
+- 2022.12.22 add expiration judgment
+- 2022.12.05 Free users can not checkin anymore, please upgrade to Basic/Pro plan.
+- 2022.11.19 some improvements
+- 2022.11.08
   - use [json] instead of [replace]
   - remove save_cookies file
-- 11.06 build, 每次运行时间约 1 分钟
+- 2022.11.06 build, 每次运行时间约 1 分钟
 
 #### 🌟️ SUGGESTION
 ```diff
