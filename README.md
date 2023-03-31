@@ -1,6 +1,7 @@
 [![GlaDxx](https://github.com/mybdye/GlaDxx/actions/workflows/main.yml/badge.svg)](https://github.com/mybdye/GlaDxx/actions/workflows/main.yml)
 
 #### ✏️ NOTE
+- 2023.04.01 add user traffic info
 - 2023.01.19 fix cookie error notification
 - 2022.12.22 add expiration judgment
 - 2022.12.05 Free users can not checkin anymore, please upgrade to Basic/Pro plan.
