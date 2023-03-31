@@ -41,7 +41,7 @@ def login():
         sb.load_cookies('cookies.txt')
         print('- load_cookies done')
         sb.open(urlConsole)
-        sb.sleep(10)
+        sb.sleep(20)
         current_url = sb.get_current_url()
         if 'console' in current_url:
             #print('- login success')
