@@ -6,7 +6,6 @@ import json
 import os
 import requests
 from urllib.parse import quote
-
 import pyscreenshot as ImageGrab
 from seleniumbase import SB
 
@@ -45,8 +44,21 @@ def login():
         sb.sleep(10)
         current_url = sb.get_current_url()
         if 'console' in current_url:
-            print('- login success')
-            return True
+            #print('- login success')
+            userName = sb.get_text('a[class="right item"]')
+            if len(userName) > 0:
+                print('- login success')
+                userName = userName.replace(')', '').split('(')[1].split('@')
+                #print('userName:', userName[0][:-2])
+                body.append('[%s***]' % (userName[0][:-2]))
+                userInfo = sb.get_text('div.row p:nth-child(3)')
+                #print('userInfo:', userInfo)
+                body.append(userInfo)
+                return True
+            else:
+                print('- 👀 len(userName):', len(userName))
+                body.append(screenshot())
+                return False
         else:
             print('- login fail, please check your cookie')
             body.append('Please Check/Update Your COOKIES')
@@ -82,23 +94,18 @@ def checkin():
     try:
         assert sb.get_current_url() == urlCheckin
         print('- page load success')
+        userPlan = sb.get_text('div.row p')
+        body.append(userPlan)
         buttonCheckin = 'button[class="ui positive button"]'
         sb.assert_element(buttonCheckin)
         print('- click buttonCheckin')
         sb.click(buttonCheckin)
         sb.sleep(4)
-        userName = sb.get_text('a[class="right item"]')
-        if len(userName) > 0:
-            print('- login success')
-            userName = userName.replace(')', '').split('(')[1].split('@')
-            userInfo = sb.get_text('div.row p')
-            checkInfo_element = 'div[class="ui icon positive message"]'
-            sb.wait_for_element(checkInfo_element)
-            checkInfo = sb.get_text(checkInfo_element)
-            body.append('[%s***]\n%s\n%s' % (userName[0][:-2], userInfo, checkInfo))
-        else:
-            print('- 👀 len(userName):', len(userName))
-            body.append(screenshot())
+        checkInfo_element = 'div[class="ui icon positive message"]'
+        sb.wait_for_element(checkInfo_element)
+        checkInfo = sb.get_text(checkInfo_element)
+        body.append(checkInfo)
+
     except Exception as e:
         #if sb.get_current_url() != urlCheckin:
         print('- 👀 checkin:', e)
