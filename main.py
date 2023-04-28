@@ -90,7 +90,7 @@ def checkin():
     global body
     print('- checkin')
     sb.open(urlCheckin)
-    sb.sleep(4)
+    sb.sleep(10)
     try:
         assert sb.get_current_url() == urlCheckin
         print('- page load success')
@@ -100,7 +100,7 @@ def checkin():
         sb.assert_element(buttonCheckin)
         print('- click buttonCheckin')
         sb.click(buttonCheckin)
-        sb.sleep(4)
+        sb.sleep(10)
         checkInfo_element = 'div[class="ui icon positive message"]'
         sb.wait_for_element(checkInfo_element)
         checkInfo = sb.get_text(checkInfo_element)
