@@ -63,7 +63,7 @@ except:
 #####
 checkinUrl = url_decode('aHR0cHM6Ly9nbGFkb3Mucm9ja3MvYXBpL3VzZXIvY2hlY2tpbg==')
 statusUrl = url_decode('aHR0cHM6Ly9nbGFkb3Mucm9ja3MvYXBpL3VzZXIvc3RhdHVz')
-token = url_decode('Z2xhZG9zLm5ldHdvcms=')
+token = url_decode('Z2xhZG9zLm9uZQ==')
 data = {
     "token": token
 }
