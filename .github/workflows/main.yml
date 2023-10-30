@@ -45,6 +45,7 @@ jobs:
         env:
           COOKIES: ${{ secrets.COOKIES }}
           BARK_TOKEN: ${{ secrets.BARK_TOKEN }}
+          PUSHDEER_KEY: ${{ secrets.PUSHDEER_KEY }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_USER_ID: ${{ secrets.TG_USER_ID }}
         run: |  
