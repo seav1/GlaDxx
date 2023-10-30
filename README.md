@@ -1,6 +1,7 @@
 [![GlaDxx](https://github.com/mybdye/GlaDxx/actions/workflows/main.yml/badge.svg)](https://github.com/mybdye/GlaDxx/actions/workflows/main.yml)
 
 #### ✏️ NOTE
+- 2023.10.30 Add pushdeer
 - 2023.07.23 Switch to the api method 🚀
 - 2023.04.01 add user traffic info
 - 2023.01.19 fix cookie error notification
@@ -37,7 +38,8 @@ schedule:
   |YOU SECRET NAME|YOU SECRET VALUE|
   |-----|--|
   |`COOKIES`| cookies，多账户请换行 |
-  |`BARK_TOKEN`|(可选) api.day.app/`BARK_TOKEN`/ 详见 https://github.com/Finb/Bark|
+  |`BARK_TOKEN`|(可选) 详见 https://github.com/Finb/Bark|
+  |`PUSHDEER_KEY`|(可选) 详见 https://www.pushdeer.com|
   |`TG_BOT_TOKEN`|(可选) `xxxxxx:xxxxxxxxxxxxx`|
   |`TG_USER_ID`|(可选) 给 bot `@userinfobot` 发送 `/start`|
 <br>
