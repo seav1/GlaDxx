@@ -22,6 +22,20 @@ def push(body):
             print('- bark push Done!')
         else:
             print('*** bark push fail! ***', rq_bark.content.decode('utf-8'))
+
+    # pushdeer
+    if pushdeerKey == '':
+        print('*** No PUSHDEER_KEY ***')
+    else:
+        pushdeerurl = 'https://api2.pushdeer.com'
+        pushdeertitle = 'Glaxxx-Checkin'
+        barkbody = quote(body, safe='')
+        rq_pushdeer = requests.get(url=f'{pushdeerurl}/message/push?pushkey={pushdeerKey}&text={pushdeertitle}&desp={barkbody}&type=markdown')
+        if rq_pushdeer.status_code == 200:
+            print('- pushdeer push Done!')
+        else:
+            print('*** pushdeer push fail! ***', rq_pushdeer.content.decode('utf-8'))
+            
     # tg push
     if tgBotToken == '' or tgUserID == '':
         print('*** No TG_BOT_TOKEN or TG_USER_ID ***')
@@ -49,6 +63,11 @@ try:
 except:
     # 本地调试用
     barkToken = ''
+try:
+    pushdeerKey = os.environ['PUSHDEER_KEY']
+except:
+    # 本地调试用
+    pushdeerKey = ''
 try:
     tgBotToken = os.environ['TG_BOT_TOKEN']
 except:
