@@ -101,6 +101,8 @@ def checkin():
             s = 'email:%s***\nstatus:%s\ntraffic:%.2f GB\nleftDays:%s\ndetail:%s' % (r_status.json()["data"]["email"][:3], r_checkin.json()["message"], float(r_status.json()["data"]["traffic"]/1024/1024/1024), int(float(r_status.json()["data"]["leftDays"])), r_checkin.json()["list"][0]["detail"])
         except KeyError as e:
             s = 'email:%s***\nerror:%s\nPlease check the cookie!' % (r_status.json()["data"]["email"][:3], e)
+        except json.JSONDecodeError as e:
+            s = 'email:%s***\nJSONDecodeError' % (r_status.json()["data"]["email"][:3], e)
         else:
             s = 'email:%s***\nstatus:%s\ntraffic:%.2f GB\nleftDays:%s' % (r_status.json()["data"]["email"][:3], r_checkin.json()["message"], float(r_status.json()["data"]["traffic"]/1024/1024/1024), int(float(r_status.json()["data"]["leftDays"])))
         body.append(s)
